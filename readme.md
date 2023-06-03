@@ -15,4 +15,4 @@ License -> https://github.com/itz-harshit/Youtube-Downloader//blob/main/LICENSE
 ---
 ## Credits
 
-- [pyrogrammers](https://github.com/itz-harshit)
+- [Harshit Shrivastav](https://github.com/itz-harshit)
