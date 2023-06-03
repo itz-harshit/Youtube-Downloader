@@ -16,4 +16,6 @@ License -> https://github.com/pyrogramers/groupchattingbot//blob/main/LICENSE
 ```
 
 ---
+## Credits
 
+- [pyrogrammers](https://github.com/pyrogramers)
