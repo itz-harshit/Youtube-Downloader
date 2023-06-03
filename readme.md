@@ -6,7 +6,7 @@ With this script, you can download YouTube videos along with playlists and even 
 ```
 
 Made with Python3
-(C) @pyrogramers
+(C)itz-harshit 
 Copyright permission under MIT License
 License -> https://github.com/itz-harshit/Youtube-Downloader//blob/main/LICENSE
 
