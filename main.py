@@ -4,7 +4,7 @@ from pytube import YouTube, Playlist, Channel
 
 # Function for some random animations
 def random_celeb():
-    return random.choice(["Celebrity 1", "Celebrity 2"])
+    return random.choice([st.balloons()])
 
 # Function to download YouTube single videos
 def video(url):
