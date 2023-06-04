@@ -46,11 +46,9 @@ def playlist(url):
         x = video.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first()
         if x is not None:
             x.download()
-            new_file_name = x.default_filename + ".mp4"
-            os.rename(x.default_filename, new_file_name)
             st.success('Done!')
             with open(new_file_name, 'rb') as file:
-                st.download_button('Download Video', file)
+                st.download_button('Download Video', file, file_name=x.default_filename + '.mp4')
 
 # Function for downloading YouTube channel
 def channel(url):
@@ -60,11 +58,9 @@ def channel(url):
         z = video.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first()
         if z is not None:
             z.download()
-            new_file_name = z.default_filename + ".mp4"
-            os.rename(z.default_filename, new_file_name)
             st.success('Done!')
             with open(new_file_name, 'rb') as file:
-                st.download_button('Download Channel', file)
+                st.download_button('Download Channel', file, file_name=z.default_filename + '.mp4')
 
 # Integration of all above-defined functions
 st.title("YouTube Downloader")
