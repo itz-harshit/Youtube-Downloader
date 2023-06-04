@@ -71,7 +71,7 @@ if st.button("Download"):
             with st.spinner("Loading..."):
                 if 'playlist' in url:
                     playlist(url)
-                elif '@' in url:
+                elif 'channel' in url:
                     channel(url)
                 else:
                     video(url)
