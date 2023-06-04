@@ -1,6 +1,7 @@
 import random
 import streamlit as st
 from pytube import YouTube, Playlist, Channel
+import os
 
 # Function for some random animations
 def random_celeb():
@@ -10,11 +11,34 @@ def random_celeb():
 def video(url):
     video_caller = YouTube(url)
     st.info(video_caller.title, icon="ℹ️")
-    video_file = video_caller.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first()
-    if video_file is not None:
-        video_file.download()
+
+    # Get available video streams
+    streams = video_caller.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc()
+
+    # Create a dictionary to store resolution and corresponding streams
+    resolution_dict = {}
+    for stream in streams:
+        resolution = f"{stream.resolution} ({stream.mime_type.split('/')[1]})"
+        resolution_dict[resolution] = stream
+
+    # Get the available resolutions
+    resolutions = list(resolution_dict.keys())
+
+    # Display resolution options
+    resolution = st.selectbox("Select Video Resolution", resolutions)
+
+    # Find the selected stream based on the resolution string
+    selected_stream = resolution_dict.get(resolution)
+
+    if selected_stream is not None:
+        selected_stream.download()
+        new_file_name = selected_stream.default_filename + ".mp4"
+        os.rename(selected_stream.default_filename, new_file_name)
         st.success('Done!')
-        st.download_button('Download Video', video_file.default_filename)
+        with open(new_file_name, 'rb') as file:
+            st.download_button('Download Video', file)
+    else:
+        st.error('Oops! Stream is not available!')
 
 # Function for downloading YouTube playlist
 def playlist(url):
@@ -24,8 +48,11 @@ def playlist(url):
         x = video.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first()
         if x is not None:
             x.download()
+            new_file_name = x.default_filename + ".mp4"
+            os.rename(x.default_filename, new_file_name)
             st.success('Done!')
-            st.download_button('Download Video', x.default_filename)
+            with open(new_file_name, 'rb') as file:
+                st.download_button('Download Video', file)
 
 # Function for downloading YouTube channel
 def channel(url):
@@ -35,9 +62,11 @@ def channel(url):
         z = video.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first()
         if z is not None:
             z.download()
-    st.success('Done!')
-    st.download_button('Download Channel', channel_videos.channel_name)
-
+            new_file_name = z.default_filename + ".mp4"
+            os.rename(z.default_filename, new_file_name)
+            st.success('Done!')
+            with open(new_file_name, 'rb') as file:
+                st.download_button('Download Channel', file)
 
 # Integration of all above-defined functions
 st.title("YouTube Downloader")
@@ -55,4 +84,3 @@ if st.button("Download"):
             random_celeb()
         except Exception as e:
             st.error(e)
-
