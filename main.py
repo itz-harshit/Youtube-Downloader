@@ -33,7 +33,7 @@ def video(url):
     if selected_stream is not None:
         selected_stream.download()
         st.success('Done!')
-        with open(new_file_name, 'rb') as file:
+        with open(selected_stream.default_filename, 'rb') as file:
             st.download_button('Download Video', file, file_name=selected_stream.default_filename + '.mp4')
     else:
         st.error('Oops! Stream is not available!')
@@ -47,7 +47,7 @@ def playlist(url):
         if x is not None:
             x.download()
             st.success('Done!')
-            with open(new_file_name, 'rb') as file:
+            with open(selected_stream.default_filename, 'rb') as file:
                 st.download_button('Download Video', file, file_name=x.default_filename + '.mp4')
 
 # Function for downloading YouTube channel
@@ -59,7 +59,7 @@ def channel(url):
         if z is not None:
             z.download()
             st.success('Done!')
-            with open(new_file_name, 'rb') as file:
+            with open(selected_stream.default_filename, 'rb') as file:
                 st.download_button('Download Channel', file, file_name=z.default_filename + '.mp4')
 
 # Integration of all above-defined functions
