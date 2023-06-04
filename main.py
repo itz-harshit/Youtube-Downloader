@@ -32,11 +32,9 @@ def video(url):
 
     if selected_stream is not None:
         selected_stream.download()
-        new_file_name = selected_stream.default_filename + ".mp4"
-        os.rename(selected_stream.default_filename, new_file_name)
         st.success('Done!')
         with open(new_file_name, 'rb') as file:
-            st.download_button('Download Video', file)
+            st.download_button('Download Video', file, file_name=selected_stream.default_filename + '.mp4')
     else:
         st.error('Oops! Stream is not available!')
 
